@@ -2,6 +2,12 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import PokeCard from "../../components/PokeCard";
 import AutoComplete from "../../components/AutoComplete";
+import EtoK from "../../JSON/PokemonNameEnglishToKorean";
+import KtoE from "../../JSON/PokemonNameKoreanToEnglish";
+
+const capitalize = (word) => {
+  return word.charAt(0).toUpperCase() + word.slice(1);
+};
 
 function MainPage() {
   const [allPokemons, setAllPokemons] = useState([]); // 모든 포켓몬 데이터를 가지고 있는 state
@@ -31,7 +37,7 @@ function MainPage() {
     try {
       // 1008개 포켓몬 데이터 받아오기
       const response = await axios.get(url);
-      // console.log(response.data.results);
+      console.log(response.data.results);
       // 모든 포켓몬 데이터 기억하기
       setAllPokemons(response.data.results);
       // 실제로 화면에 보여줄 포켓몬 리스트 기억하는 state
@@ -73,10 +79,10 @@ function MainPage() {
       <section className="pt-6 flex flex-col justify-content items-center overflow-auto z-0">
         <div className="flex flex-row flex-wrap gap-[16px] items-center justify-center px-2 max-w-4xl">
           {displayedPokemons.length > 0 ? (
-            displayedPokemons.map(({ url, name }, index) => (
+            displayedPokemons.map(({ url, name }, _) => (
               <div key={url}>
-                <PokeCard url={url} name={name}>
-                  {name}
+                <PokeCard url={url} name={EtoK[capitalize(name)]}>
+                  {EtoK[capitalize(name)]}
                 </PokeCard>
               </div>
             ))

@@ -12,6 +12,12 @@ import BaseStat from "../../components/BaseStat";
 import DamageRelations from "../../components/DamageRelations";
 import DamageModal from "../../components/DamageModal";
 import imgUrl from "../../Constant";
+import KtoE from "../../JSON/PokemonNameKoreanToEnglish";
+import EtoK from "../../JSON/PokemonNameEnglishToKorean";
+
+const capitalize = (word) => {
+  return word.charAt(0).toUpperCase() + word.slice(1);
+};
 
 const DetailPage = () => {
   const [pokemon, setPokemon] = useState({});
@@ -19,7 +25,7 @@ const DetailPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const params = useParams();
-  const pokemonId = params.id;
+  const pokemonId = KtoE[params.id].toLowerCase();
   const baseUrl = `https://pokeapi.co/api/v2/pokemon/`;
   // console.log(params);
 
@@ -199,7 +205,7 @@ const DetailPage = () => {
                 <ArrowLeft className="w-6 h-8 text-zinc-200 " />
               </Link>
               <h1 className="text-zinc-200 font-bold text-xl capitalize">
-                {pokemon.name}
+                {EtoK[capitalize(pokemon.name)]}
               </h1>
             </div>
             <div className="text-zinc-200 font-bold text-medium">

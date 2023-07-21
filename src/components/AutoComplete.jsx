@@ -1,16 +1,38 @@
 import { useState, useEffect } from "react";
+import EtoK from "../JSON/PokemonNameEnglishToKorean";
+import KtoE from "../JSON/PokemonNameKoreanToEnglish";
+
+const capitalize = (word) => {
+  return word.charAt(0).toUpperCase() + word.slice(1);
+};
 
 const AutoComplete = ({ allPokemons, setDisplayedPokemons }) => {
   const [searchTerm, setSearchTerm] = useState("");
 
   const filterNames = (input) => {
-    const value = input.toLowerCase();
-    return value ? allPokemons.filter((e) => e.name.includes(value)) : [];
+    const KorNames = Object.keys(KtoE);
+    const KorPokemonNames = KorNames.filter((e) => e.includes(input));
+    // const value = input.toLowerCase();
+    // console.log(EngPokemonNames);
+    const EngPokemons = allPokemons.filter((e) =>
+      KorPokemonNames.includes(EtoK[capitalize(e.name)])
+    );
+
+    // return input
+    //   ? EngPokemons.map((e) => ({ name: EtoK[capitalize(e.name)], url: e.url }))
+    //   : [];
+    return input ? EngPokemons : [];
   };
 
   const checkEqualname = (input) => {
     const filteredArray = filterNames(input);
-    return filteredArray[0]?.name === input ? [] : filteredArray;
+    console.log(filteredArray);
+    let firstPokemonName = "";
+    if (filteredArray[0] !== undefined) {
+      firstPokemonName = EtoK[capitalize(filteredArray[0].name)];
+    }
+
+    return firstPokemonName === input ? [] : filteredArray;
   };
 
   const handleSubmit = (e) => {
@@ -54,11 +76,12 @@ const AutoComplete = ({ allPokemons, setDisplayedPokemons }) => {
               <li key={`button-${i}`}>
                 <button
                   onClick={() => {
-                    setSearchTerm(e.name);
+                    const KoreanName = EtoK[capitalize(e.name)];
+                    setSearchTerm(KoreanName);
                   }}
                   className={`text-base w-full hover:bg-gray-600 p-[2px] text-gray-100`}
                 >
-                  {e.name}
+                  {EtoK[capitalize(e.name)]}
                 </button>
               </li>
             ))}

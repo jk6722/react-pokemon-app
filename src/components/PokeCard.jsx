@@ -59,7 +59,7 @@ export default function PokeCard({ url, name }) {
           <div
             className={`${bg} text-xs text-zinc-100 h-[1.5rem] rounded-b-lg uppercase font-medium pt-1 text-center`}
           >
-            {pokemon.name}
+            {name}
           </div>
         </Link>
       )}
