@@ -13,7 +13,7 @@ const LoginPage = () => {
           <p className="text-xs mt-4 text-[#002D74]">환영합니다</p>
           <p className="text-xs mt-4 text-[#002D74]">로그인 해 주세요</p>
         </div>
-        <div className="md:block hidden w-1/2">
+        <div className="md:block w-1/2">
           <img className="rounded-2xl" src={img} alt="login" />
         </div>
       </div>

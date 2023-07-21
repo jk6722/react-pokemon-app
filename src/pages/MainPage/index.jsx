@@ -37,7 +37,7 @@ function MainPage() {
     try {
       // 1008개 포켓몬 데이터 받아오기
       const response = await axios.get(url);
-      console.log(response.data.results);
+      // console.log(response.data.results);
       // 모든 포켓몬 데이터 기억하기
       setAllPokemons(response.data.results);
       // 실제로 화면에 보여줄 포켓몬 리스트 기억하는 state
